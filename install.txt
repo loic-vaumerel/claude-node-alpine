@@ -1,0 +1,10 @@
+1. Add in .bashrc file
+
+# Run Claude Code in the Alpine container: claude-docker [folder] [claude args...]
+claude-docker() {
+  local dir="${1:-.}"
+  [ $# -gt 0 ] && shift
+  WORKSPACE="$(realpath "$dir")" docker compose \
+    -f /home/shefla/claude/docker/claude-node-alpine/docker-compose.yml \
+    run --rm claude "$@"
+}

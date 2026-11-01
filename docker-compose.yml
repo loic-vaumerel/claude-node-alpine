@@ -1,0 +1,16 @@
+services:
+  claude:
+    build: .
+    image: claude-node-alpine
+    stdin_open: true          # same as -i
+    tty: true                 # same as -t
+    env_file:
+      - path: .env.claude
+        required: false       # can be missing if you log in with /login instead
+    volumes:
+      - claude-config:/home/node/.claude
+      - ./CLAUDE.md:/home/node/.claude/CLAUDE.md:ro
+      - ${WORKSPACE:-${PWD}}:/workspace   # set WORKSPACE=/abs/path to mount another folder
+
+volumes:
+  claude-config:
